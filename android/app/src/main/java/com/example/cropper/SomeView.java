@@ -31,17 +31,16 @@ public class SomeView extends View implements View.OnTouchListener {
 
     Point mlastpoint = null;
 
-    Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
-            R.drawable.gallery_12);
+    Bitmap bitmap ;
     Context mContext;
 
-    public SomeView(Context c) {
+    public SomeView(Context c, byte[] val) {
         super(c);
 
         mContext = c;
         setFocusable(true);
         setFocusableInTouchMode(true);
-
+        bitmap =  BitmapFactory.decodeByteArray(val, 0,val.length);
         paint = new Paint(Paint.ANTI_ALIAS_FLAG);
         paint.setStyle(Paint.Style.STROKE);
         paint.setPathEffect(new DashPathEffect(new float[] { 10, 20 }, 0));

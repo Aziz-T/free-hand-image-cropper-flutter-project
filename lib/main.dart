@@ -1,3 +1,5 @@
+import 'dart:typed_data';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -96,6 +98,7 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
+            Image.asset("assets/img.jpg"),
             const Text(
               'You have pushed the button this many times:',
             ),
@@ -121,9 +124,18 @@ class _MyHomePageState extends State<MyHomePage> {
 class Music {
   static const MethodChannel _channel = MethodChannel('samples.flutter.dev/battery');
 
+
+
   static Future<void> play() async {
+
+    String audioasset = "assets/img.jpg"; //path to asset
+    ByteData bytes = await rootBundle.load(audioasset); //load sound from assets
+    Uint8List  soundbytes = bytes.buffer.asUint8List(bytes.offsetInBytes, bytes.lengthInBytes);
+     Map<dynamic, Uint8List> map = {
+      "data": soundbytes
+    };
     try {
-      return _channel.invokeMethod('goIntent');
+      return await _channel.invokeMethod('goIntent', map);
     } on PlatformException catch (e) {}
   }
 }

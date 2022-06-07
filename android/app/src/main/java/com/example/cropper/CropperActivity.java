@@ -15,6 +15,7 @@ public class CropperActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        setContentView(new SomeView(CropperActivity.this));
+        byte[] val = getIntent().getByteArrayExtra("val");
+        setContentView(new SomeView(CropperActivity.this, val));
     }
 }
